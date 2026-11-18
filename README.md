@@ -68,10 +68,10 @@ Change dialogs use **Save** and **Cancel**. Task creation shows a result for eac
 
 ## Version 0.5
 
-The app follows the Windows light or dark theme. The header shows when pods were last refreshed, and the footer shows whether the app is connected, offline (showing the last snapshot) or in mock mode. Errors appear in a banner below the header until dismissed; confirmations such as "Pods refreshed" appear briefly in the corner.
+The app uses the blue of the company app catalog and follows the Windows light or dark theme; Settings → Appearance can fix it to Light or Dark instead (remembered on this PC). The header shows when pods were last refreshed, and the footer shows whether the app is connected, offline (showing the last snapshot) or in mock mode. Errors appear in a banner below the header until dismissed; confirmations such as "Pods refreshed" appear briefly in the corner.
 
 Pod and Feature pages show a breadcrumb back to the page they belong to; the full-screen button sits at the right of each page's toolbar. Overview cards are titled by pod name, with the Feature, its state and a progress bar below. Timeline opens scrolled to today: click a pod name to open its page, or a bar to preview it. The Base heading in the sidebar opens the Base panel at once; previews and the Base panel close with Escape.
 
-Settings is ordered as setup happens: TFS connection, Scope (Area Paths, Base lane, CM Pod owners), field mapping and task templates, beside Team members, import diagnostics and Workspace. **Load sample data** moved to Settings → Workspace.
+Settings is ordered as setup happens: TFS connection, Scope (Area Paths, Base lane, CM Pod owners), field mapping and task templates, beside Appearance, Team members, import diagnostics and Workspace. **Load sample data** moved to Settings → Workspace.
 
 Consequential confirmations name their action: **Close pod**, **Remove**, **Replace workspace**, **Add members** and **Create tasks** (then **Retry failed** for rejected drafts). Plain edits still use **Save** and **Cancel**.

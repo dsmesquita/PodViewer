@@ -383,6 +383,12 @@ const assert = require("node:assert/strict");
     await page.locator("textarea").fill("Product\nProduct\\Other");
     await page.locator("textarea").press("Tab");
     assert((await page.locator("textarea").inputValue()).includes("\n"));
+    await page.getByRole("radio", { name: "Dark", exact: true }).check();
+    const colorScheme = () =>
+      page.evaluate(
+        () => globalThis.document.documentElement.style.colorScheme,
+      );
+    assert.equal(await colorScheme(), "dark");
     await nav("Skills").click();
     await page.getByRole("tab", { name: "Skills", exact: true }).click();
     await button("Add skill").click();
@@ -448,6 +454,7 @@ const assert = require("node:assert/strict");
     await new Promise((r) => server.close(r));
     page = await launch();
     await page.getByText("Local pod name", { exact: true }).waitFor();
+    assert.equal(await colorScheme(), "dark");
     await page
       .locator(".app-messages")
       .filter({ hasText: /fetch|ERR|connect|reach/i })

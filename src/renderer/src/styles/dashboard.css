@@ -124,7 +124,7 @@
 .progress i {
   flex: 1;
   border-radius: 3px;
-  background: var(--colorNeutralBackground5);
+  background: var(--colorNeutralStroke2);
 }
 .progress .progress-active {
   background: var(--colorBrandBackground);

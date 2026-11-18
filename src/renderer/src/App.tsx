@@ -9,7 +9,7 @@ import { AppToaster } from "./ui/Notifications";
 import { darkTheme, lightTheme } from "./ui/theme";
 
 export default function App() {
-  const mode = useThemeMode();
+  const { mode } = useThemeMode();
   return (
     <FluentProvider theme={mode === "dark" ? darkTheme : lightTheme}>
       <div className="app-root">
