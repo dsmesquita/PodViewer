@@ -8,9 +8,13 @@ The finished Windows installer in `release/` includes its runtime; Node.js is ne
 
 Install Node.js 22 or newer, then run `npm install` and `npm run dev`.
 
-`npm run dev:web` opens the renderer at http://localhost:5180. Choose **Load sample data** to explore without TFS. Browser preview cannot connect to TFS or save to disk.
+`npm run check` runs type checks, ESLint and unit tests; `npm run format` applies Prettier. `npm run build` builds the Electron app. `npm run dist` validates, builds and packages a per-user Windows installer under `release/` (requires Windows for packaging).
 
-`npm run check` runs type checks and tests. `npm run build` builds the Electron app. `npm run dist` validates, builds and packages a per-user Windows installer under `release/` (requires Windows for packaging).
+## Local mock data
+
+To explore the UI without TFS, run `npm run dev:mock` (the Electron app) or `npm run dev:web` (the renderer in a browser at http://localhost:5180). Both serve the git-ignored `mock/` folder, which is seeded with fictional pods, people and work items on first start; `mock/README.md` explains each file. Edit `mock/workspace.json` and press Refresh to see changes. `mock/config.json` can slow calls down (`delayMs`) or make specific item reads or Refresh fail, to check loading and error states. Task drafts are only "created" in memory; put `[fail]` or `[uncertain]` in a title to see those results.
+
+Mock mode keeps its own state in `mock/.profile` and never reads or writes `%APPDATA%\PodViewer` or contacts a server. `npm run mock:reset` discards local edits; `npm run mock:reset -- --all` deletes the folder so it is re-seeded. Packaged builds ignore mock mode.
 
 ## Connect
 
@@ -61,3 +65,13 @@ Use the collapsed membership panel to review the roster and its **Add members** 
 In **Skills**, the **Members** tab shows each person's ratings and opens their skills editor. Use the **Skills** tab to manage the catalog. All skills use Learning (red), Working (yellow), and Experienced (green). Existing Expert ratings appear as Experienced.
 
 Change dialogs use **Save** and **Cancel**. Task creation shows a result for each draft and offers **Close** once no drafts remain. Check uncertain results in TFS before attempting them again.
+
+## Version 0.5
+
+The app follows the Windows light or dark theme. The header shows when pods were last refreshed, and the footer shows whether the app is connected, offline (showing the last snapshot) or in mock mode. Errors appear in a banner below the header until dismissed; confirmations such as "Pods refreshed" appear briefly in the corner.
+
+Pod and Feature pages show a breadcrumb back to the page they belong to; the full-screen button sits at the right of each page's toolbar. Overview cards are titled by pod name, with the Feature, its state and a progress bar below. Timeline opens scrolled to today: click a pod name to open its page, or a bar to preview it. The Base heading in the sidebar opens the Base panel at once; previews and the Base panel close with Escape.
+
+Settings is ordered as setup happens: TFS connection, Scope (Area Paths, Base lane, CM Pod owners), field mapping and task templates, beside Team members, import diagnostics and Workspace. **Load sample data** moved to Settings → Workspace.
+
+Consequential confirmations name their action: **Close pod**, **Remove**, **Replace workspace**, **Add members** and **Create tasks** (then **Retry failed** for rejected drafts). Plain edits still use **Save** and **Cancel**.

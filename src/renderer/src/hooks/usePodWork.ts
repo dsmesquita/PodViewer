@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import type { Item, Pod } from "../../../shared/model";
-import { isTask } from "../ui/WorkItemType";
+import type { Item, Pod } from "@shared/model";
+import { isTask } from "@/ui/WorkItemType";
+import { api as bridge } from "./api";
 
 const isPodWork = (item: Item) =>
   isTask(item.type) || /^(bug|user story)$/i.test(item.type ?? "");
@@ -12,7 +13,7 @@ export function usePodWork(pod: Pod, connected: boolean) {
   const [attempt, retry] = useState(0);
 
   useEffect(() => {
-    const api = window.api;
+    const api = bridge();
     if (!api || !connected) return;
     let active = true;
     const reads = new Map<number, Promise<Item[]>>();

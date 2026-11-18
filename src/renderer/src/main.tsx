@@ -1,12 +1,16 @@
-import { FluentProvider, webDarkTheme } from "@fluentui/react-components";
-import React from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
-import "./style.css";
-createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <FluentProvider theme={webDarkTheme}>
+import "./styles/index.css";
+
+async function start() {
+  if (import.meta.env.DEV && !window.api)
+    (await import("./dev/installMockApi")).installMockApi();
+  createRoot(document.getElementById("root")!).render(
+    <StrictMode>
       <App />
-    </FluentProvider>
-  </React.StrictMode>,
-);
+    </StrictMode>,
+  );
+}
+
+void start();

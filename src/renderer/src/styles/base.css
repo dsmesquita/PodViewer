@@ -1,0 +1,220 @@
+:root {
+  --app-gap-action: 8px;
+  --app-gap-form: 16px;
+  --app-gap-section: 24px;
+  --app-gutter: 32px;
+}
+
+* {
+  box-sizing: border-box;
+}
+[hidden] {
+  display: none !important;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+/* An inner wrapper, not the FluentProvider: Fluent copies the provider's class onto portals. */
+.app-root {
+  height: 100%;
+  font-family: var(--fontFamilyBase);
+  color: var(--colorNeutralForeground1);
+  background: var(--colorNeutralBackground2);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: var(--fontWeightSemibold);
+  color: var(--colorNeutralForeground1);
+}
+h1 {
+  font-size: var(--fontSizeBase600);
+  line-height: var(--lineHeightBase600);
+}
+h2 {
+  font-size: var(--fontSizeBase500);
+  line-height: var(--lineHeightBase500);
+}
+h3 {
+  font-size: var(--fontSizeBase400);
+  line-height: var(--lineHeightBase400);
+}
+p {
+  margin: 0;
+  color: var(--colorNeutralForeground2);
+  font-size: var(--fontSizeBase300);
+  line-height: var(--lineHeightBase300);
+}
+small,
+.eyebrow,
+.hint {
+  color: var(--colorNeutralForeground3);
+  font-size: var(--fontSizeBase200);
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+a {
+  color: var(--colorBrandForegroundLink);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--colorBrandForegroundLinkHover);
+  text-decoration: underline;
+}
+:focus-visible {
+  outline: 2px solid var(--colorStrokeFocus2);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.action-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--app-gap-action);
+}
+
+.section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--app-gap-form);
+}
+
+.form-stack,
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-gap-form);
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--app-gap-form);
+}
+.inline-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--app-gap-action);
+}
+.inline-form > .fui-Field {
+  flex: 1 1 260px;
+}
+/* Field hints reserve no space under the button row. */
+.inline-form > button {
+  margin-bottom: 22px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-gap-action);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.field-group legend,
+.field-caption {
+  padding: 0;
+  margin-bottom: 4px;
+  font-weight: var(--fontWeightSemibold);
+  font-size: var(--fontSizeBase300);
+}
+
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--app-gap-action);
+}
+
+.loading {
+  padding: 8px 0;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--app-gap-form);
+  padding: 64px 24px;
+  text-align: center;
+  border: 1px dashed var(--colorNeutralStroke2);
+  border-radius: var(--borderRadiusXLarge);
+  background: var(--colorNeutralBackground1);
+}
+.empty-mark {
+  font-size: 40px;
+  color: var(--colorBrandForeground1);
+}
+
+.warning-text {
+  color: var(--colorStatusWarningForeground1);
+}
+
+.fui-Button.danger-primary {
+  background: var(--colorStatusDangerBackground3);
+  color: var(--colorNeutralForegroundOnBrand);
+  border-color: transparent;
+}
+.fui-Button.danger-primary:hover {
+  background: var(--colorStatusDangerForeground1);
+  color: var(--colorNeutralForegroundOnBrand);
+}
+.fui-Button.danger-primary:disabled {
+  background: var(--colorNeutralBackgroundDisabled);
+  color: var(--colorNeutralForegroundDisabled);
+}
+.fui-Button.danger-button {
+  color: var(--colorStatusDangerForeground1);
+  border-color: var(--colorStatusDangerBorder1);
+}
+.fui-Button.danger-button:hover {
+  color: var(--colorStatusDangerForeground1);
+  background: var(--colorStatusDangerBackground1);
+  border-color: var(--colorStatusDangerBorder2);
+}
+
+.fui-DialogSurface.dialog-wide {
+  max-width: min(960px, calc(100vw - 48px));
+}
+
+.status-details {
+  max-width: 420px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.status-icon.status-error {
+  color: var(--colorStatusDangerForeground1);
+}
+.status-icon.status-warning {
+  color: var(--colorStatusWarningForeground1);
+}
+.status-icon.status-success {
+  color: var(--colorStatusSuccessForeground1);
+}
+.status-icon.status-info {
+  color: var(--colorBrandForeground1);
+}

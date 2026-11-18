@@ -1,0 +1,208 @@
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--app-gap-form);
+  margin: 0 0 var(--app-gap-section);
+}
+.summary > div {
+  display: flex;
+  flex-direction: column-reverse;
+  min-width: 160px;
+  padding: 12px 16px;
+  border-radius: var(--borderRadiusLarge);
+  background: var(--colorNeutralBackground1);
+  box-shadow: var(--shadow2);
+}
+.summary dt {
+  font-size: var(--fontSizeBase200);
+  color: var(--colorNeutralForeground3);
+}
+.summary dd {
+  margin: 0;
+  font-size: var(--fontSizeHero700);
+  line-height: var(--lineHeightHero700);
+  font-weight: var(--fontWeightSemibold);
+  color: var(--colorBrandForeground1);
+}
+.summary .summary-warning dd {
+  color: var(--colorStatusWarningForeground1);
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: var(--app-gap-section);
+  align-items: start;
+}
+@media (max-width: 1100px) {
+  .workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--app-gap-form);
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: var(--borderRadiusXLarge);
+  background: var(--colorNeutralBackground1);
+  border: 1px solid var(--colorNeutralStroke2);
+  box-shadow: var(--shadow2);
+  transition:
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+.pod-card:hover,
+.pod-card:focus-within {
+  border-color: var(--colorBrandStroke1);
+  box-shadow: var(--shadow8);
+}
+.cardtop {
+  display: flex;
+  align-items: center;
+  gap: var(--app-gap-action);
+  min-height: 24px;
+}
+.card h2 {
+  font-size: var(--fontSizeBase500);
+}
+/* The title button covers the card; other controls sit above it. */
+.card-title {
+  all: unset;
+  cursor: pointer;
+  color: var(--colorNeutralForeground1);
+}
+.card-title::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+.card-title:focus-visible {
+  outline: none;
+}
+.pod-card:has(.card-title:focus-visible) {
+  outline: 2px solid var(--colorStrokeFocus2);
+  outline-offset: 2px;
+}
+.pod-card :is(a, button:not(.card-title), .fui-AvatarGroup) {
+  position: relative;
+  z-index: 1;
+}
+.card-feature {
+  display: flex;
+  align-items: center;
+  gap: var(--app-gap-action);
+  min-width: 0;
+}
+.item-summary {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.card-feature .item-summary {
+  flex: 1;
+}
+.progress-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.progress {
+  display: flex;
+  gap: 3px;
+  height: 6px;
+}
+.progress i {
+  flex: 1;
+  border-radius: 3px;
+  background: var(--colorNeutralBackground5);
+}
+.progress .progress-active {
+  background: var(--colorBrandBackground);
+}
+.progress :is(.progress-done, .progress-resolved) {
+  background: var(--colorPaletteGreenBackground3);
+}
+.cardfooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+.avatars {
+  display: flex;
+  align-items: center;
+  gap: var(--app-gap-action);
+}
+.empty-lane {
+  border-style: dashed;
+  box-shadow: none;
+  background: transparent;
+}
+
+.base-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: var(--borderRadiusXLarge);
+  background: var(--colorNeutralBackground1);
+  border: 1px solid var(--colorNeutralStroke2);
+}
+.sidebar-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.heading-button {
+  all: unset;
+  cursor: pointer;
+  border-radius: var(--borderRadiusMedium);
+}
+.heading-button:hover {
+  color: var(--colorBrandForeground1);
+}
+.heading-button:focus-visible {
+  outline: 2px solid var(--colorStrokeFocus2);
+  outline-offset: 2px;
+}
+
+.people-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.person {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 4px;
+  border-radius: var(--borderRadiusMedium);
+}
+.person > div:not(.action-group) {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.person > .action-group {
+  margin-left: auto;
+}
+.person-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px 2px 2px;
+  border-radius: 999px;
+  background: var(--colorNeutralBackground3);
+  font-size: var(--fontSizeBase300);
+}

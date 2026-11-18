@@ -1,11 +1,12 @@
 {
   "include": [
     "electron.vite.config.ts",
+    "vite.web.config.ts",
+    "vitest.config.ts",
     "src/main/**/*",
     "src/preload/**/*",
     "src/shared/**/*"
   ],
-  "exclude": ["src/**/__tests__/**"],
   "compilerOptions": {
     "composite": true,
     "target": "ES2022",
@@ -23,6 +24,9 @@
     "baseUrl": ".",
     "paths": {
       "@shared/*": ["src/shared/*"]
-    }
+    },
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noFallthroughCasesInSwitch": true
   }
 }

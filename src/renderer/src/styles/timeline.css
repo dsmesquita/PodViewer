@@ -1,0 +1,157 @@
+.timeline-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--app-gap-form);
+  margin-bottom: 12px;
+}
+.legend {
+  display: flex;
+  gap: var(--app-gap-form);
+  margin-left: auto;
+  font-size: var(--fontSizeBase200);
+  color: var(--colorNeutralForeground3);
+}
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend i {
+  display: inline-block;
+  width: 20px;
+  height: 10px;
+  border-radius: 3px;
+}
+.legend-elapsed {
+  background: var(--colorBrandBackground);
+}
+.legend-expected {
+  border: 2px dashed var(--colorBrandStroke1);
+}
+.legend .legend-today {
+  width: 2px;
+  height: 14px;
+  background: var(--colorStatusDangerForeground1);
+}
+
+.timeline {
+  overflow: auto;
+  border-radius: var(--borderRadiusXLarge);
+  background: var(--colorNeutralBackground1);
+  border: 1px solid var(--colorNeutralStroke2);
+}
+.ticks {
+  display: flex;
+  margin-left: 200px;
+  border-bottom: 1px solid var(--colorNeutralStroke2);
+}
+.ticks span {
+  flex: none;
+  padding: 8px 0;
+  font-size: var(--fontSizeBase100);
+  color: var(--colorNeutralForeground3);
+  white-space: nowrap;
+  overflow: visible;
+}
+.track {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--colorNeutralStroke3);
+}
+.tracklabel {
+  all: unset;
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--app-gap-action);
+  box-sizing: border-box;
+  width: 200px;
+  padding: 0 12px;
+  cursor: pointer;
+  font-weight: var(--fontWeightSemibold);
+  background: var(--colorNeutralBackground1);
+  border-right: 1px solid var(--colorNeutralStroke2);
+}
+.tracklabel:hover {
+  color: var(--colorBrandForeground1);
+  text-decoration: underline;
+}
+.tracklabel:focus-visible {
+  outline: 2px solid var(--colorStrokeFocus2);
+  outline-offset: -2px;
+}
+.rail {
+  position: relative;
+  flex: 1;
+  height: 52px;
+}
+.today {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--colorStatusDangerForeground1);
+  opacity: 0.7;
+}
+.bar {
+  all: unset;
+  position: absolute;
+  top: 12px;
+  height: 28px;
+  box-sizing: border-box;
+  padding: 0 10px;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 28px;
+  font-size: var(--fontSizeBase200);
+  color: var(--colorNeutralForegroundOnBrand);
+  background: var(--colorBrandBackground);
+  border-radius: var(--borderRadiusMedium);
+}
+.bar:hover {
+  background: var(--colorBrandBackgroundHover);
+}
+.bar:focus-visible {
+  outline: 2px solid var(--colorStrokeFocus2);
+  outline-offset: 2px;
+}
+.forecast {
+  position: absolute;
+  top: 12px;
+  height: 28px;
+  box-sizing: border-box;
+  padding-right: 6px;
+  text-align: right;
+  line-height: 24px;
+  color: var(--colorBrandForeground1);
+  border: 2px dashed var(--colorBrandStroke1);
+  border-left: 0;
+  border-radius: 0 var(--borderRadiusMedium) var(--borderRadiusMedium) 0;
+  pointer-events: none;
+}
+.unknown {
+  position: absolute;
+  top: 17px;
+  right: 12px;
+}
+.missing-start {
+  all: unset;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: var(--fontSizeBase200);
+  color: var(--colorStatusWarningForeground1);
+  border: 1px dashed var(--colorStatusWarningBorder1);
+  border-radius: var(--borderRadiusMedium);
+}
+.missing-start:focus-visible {
+  outline: 2px solid var(--colorStrokeFocus2);
+}

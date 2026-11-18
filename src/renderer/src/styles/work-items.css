@@ -1,0 +1,171 @@
+/* Type and level badges use Fluent palette tokens, which adapt to light and dark themes. */
+.type-badge {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  padding: 1px 8px;
+  border-radius: var(--borderRadiusMedium);
+  font-size: var(--fontSizeBase100);
+  font-weight: var(--fontWeightSemibold);
+  line-height: 18px;
+  white-space: nowrap;
+  color: var(--colorNeutralForeground2);
+  background: var(--colorNeutralBackground4);
+}
+.type-epic {
+  color: var(--colorPalettePumpkinForeground2);
+  background: var(--colorPalettePumpkinBackground2);
+}
+.type-feature {
+  color: var(--colorPalettePurpleForeground2);
+  background: var(--colorPalettePurpleBackground2);
+}
+.type-bug,
+.level-2 {
+  color: var(--colorPaletteRedForeground2);
+  background: var(--colorPaletteRedBackground2);
+}
+.type-story {
+  color: var(--colorPaletteBlueForeground2);
+  background: var(--colorPaletteBlueBackground2);
+}
+.type-task,
+.level-3 {
+  color: var(--colorPaletteMarigoldForeground2);
+  background: var(--colorPaletteMarigoldBackground2);
+}
+.type-pod,
+.level-4 {
+  color: var(--colorPaletteGreenForeground2);
+  background: var(--colorPaletteGreenBackground2);
+}
+li.type-badge {
+  font-size: var(--fontSizeBase200);
+  padding: 2px 10px;
+}
+
+.work-item-link {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.work-item-panel {
+  border-radius: var(--borderRadiusLarge);
+  background: var(--colorNeutralBackground1);
+  border: 1px solid var(--colorNeutralStroke2);
+}
+.work-item-panel + .work-item-panel,
+.base-item + .base-item {
+  margin-top: var(--app-gap-action);
+}
+.work-item-header,
+.task-row {
+  display: flex;
+  align-items: center;
+  gap: var(--app-gap-action);
+  min-height: 40px;
+  padding: 4px 8px;
+}
+.work-item-title {
+  all: unset;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: var(--fontWeightSemibold);
+}
+button.work-item-title {
+  cursor: pointer;
+  border-radius: var(--borderRadiusSmall);
+}
+button.work-item-title:hover {
+  color: var(--colorBrandForeground1);
+}
+button.work-item-title:focus-visible {
+  outline: 2px solid var(--colorStrokeFocus2);
+}
+.task-row .item-summary {
+  flex: 1;
+}
+.assignee {
+  flex: none;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--fontSizeBase200);
+  color: var(--colorNeutralForeground3);
+}
+.work-item-children {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px 8px 8px 40px;
+  border-top: 1px solid var(--colorNeutralStroke3);
+}
+.work-item-children .work-item-panel {
+  margin: 0;
+}
+.task-row + .task-row {
+  border-top: 1px solid var(--colorNeutralStroke3);
+}
+.empty-tasks {
+  padding: 8px;
+  color: var(--colorNeutralForeground3);
+  font-size: var(--fontSizeBase200);
+}
+.state-badge {
+  flex: none;
+}
+
+.base-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+}
+.base-item > .work-item-panel {
+  flex: 1;
+  min-width: 0;
+}
+
+.task-drafts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-gap-form);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.task-drafts > .fui-Button {
+  align-self: flex-start;
+}
+.draft-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-gap-action);
+}
+.draft-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 200px 110px 32px;
+  gap: var(--app-gap-action);
+  align-items: center;
+}
+.draft-row > span > * {
+  width: 100%;
+}
+.draft-head {
+  font-size: var(--fontSizeBase200);
+  font-weight: var(--fontWeightSemibold);
+  color: var(--colorNeutralForeground3);
+}
+.task-results {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.task-result {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

@@ -1,0 +1,111 @@
+.shell {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  height: 100%;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: var(--app-gap-section);
+  height: 56px;
+  padding: 0 var(--app-gutter);
+  background: var(--colorNeutralBackground1);
+  border-bottom: 1px solid var(--colorNeutralStroke2);
+}
+header[hidden],
+footer[hidden] {
+  display: none;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+.brand strong {
+  font-size: var(--fontSizeBase400);
+}
+.logo {
+  font-size: 26px;
+  line-height: 1;
+  color: var(--colorBrandForeground1);
+}
+nav {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+.fui-Button.nav-item {
+  color: var(--colorNeutralForeground2);
+  font-weight: var(--fontWeightRegular);
+  position: relative;
+}
+.fui-Button.nav-item.active {
+  color: var(--colorBrandForeground1);
+  font-weight: var(--fontWeightSemibold);
+}
+.fui-Button.nav-item.active::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: -11px;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--colorBrandForeground1);
+}
+.refresh {
+  display: flex;
+  align-items: center;
+  gap: var(--app-gap-action);
+  white-space: nowrap;
+}
+
+.app-messages {
+  padding: 12px var(--app-gutter) 0;
+}
+.clamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+main {
+  overflow: auto;
+  padding: var(--app-gap-section) var(--app-gutter) 48px;
+}
+main > * {
+  max-width: 1760px;
+  margin-inline: auto;
+}
+.focus-content main {
+  padding-top: 12px;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--app-gap-form);
+  padding: 8px var(--app-gutter);
+  font-size: var(--fontSizeBase200);
+  color: var(--colorNeutralForeground3);
+  background: var(--colorNeutralBackground1);
+  border-top: 1px solid var(--colorNeutralStroke2);
+}
+
+.page-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--app-gap-form);
+  min-height: 40px;
+  margin-bottom: var(--app-gap-form);
+}
+.page-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--app-gap-action);
+  margin-left: auto;
+}

@@ -9,6 +9,12 @@ import {
   range,
   reconcile,
   visible,
+  available,
+  inAreas,
+  isDone,
+  pendingClosure,
+  podName,
+  stateCategory,
 } from "./model";
 import { sample } from "./sample";
 describe("pod planning", () => {
@@ -119,5 +125,48 @@ describe("pod work assignments", () => {
     expect(
       assignedMember({ ...task, assigneeId: "someone-else" }, [ana]),
     ).toBeUndefined();
+  });
+});
+
+describe("presentation helpers", () => {
+  it("prefers the local pod name over the lane", () => {
+    const w = sample();
+    const pod = w.pods[0];
+    expect(podName(w, pod)).toBe(pod.lane);
+    expect(podName(edit(w, pod.id, { name: "Renamed" }), pod)).toBe("Renamed");
+  });
+  it("groups TFS states into display categories", () => {
+    expect(stateCategory("New")).toBe("proposed");
+    expect(stateCategory("Active")).toBe("active");
+    expect(stateCategory("Resolved")).toBe("resolved");
+    expect(stateCategory("Closed")).toBe("done");
+    expect(isDone("Done")).toBe(true);
+  });
+  it("prompts closure once for finished Features", () => {
+    const w = sample();
+    w.pods[0].feature.state = "Resolved";
+    expect(pendingClosure(w)?.id).toBe(w.pods[0].id);
+    expect(pendingClosure(edit(w, w.pods[0].id, { dismissed: true }))).toBe(
+      undefined,
+    );
+    expect(
+      pendingClosure(edit(w, w.pods[0].id, { closed: "2026-11-17" })),
+    ).toBe(undefined);
+  });
+  it("lists only unassigned roster members as available", () => {
+    const w = sample();
+    expect(available(w).map((m) => m.name)).toEqual([
+      "Inês Ferreira",
+      "João Sousa",
+    ]);
+  });
+});
+
+describe("area paths", () => {
+  it("matches a path or its descendants, ignoring case", () => {
+    expect(inAreas(["Product"], "product\\MES")).toBe(true);
+    expect(inAreas(["Product"], "Product")).toBe(true);
+    expect(inAreas(["Product"], "ProductX")).toBe(false);
+    expect(inAreas(["Product"], undefined)).toBe(false);
   });
 });

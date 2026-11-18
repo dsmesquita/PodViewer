@@ -1,0 +1,11 @@
+/*
+ * Colours, radii and type come from Fluent's theme variables (set on .app-root by
+ * FluentProvider), so every rule works in both the light and dark themes.
+ * Spacing follows AGENTS.md: 8px between actions, 16px between form groups, 24px between sections.
+ */
+@import "./base.css";
+@import "./shell.css";
+@import "./dashboard.css";
+@import "./timeline.css";
+@import "./work-items.css";
+@import "./pages.css";

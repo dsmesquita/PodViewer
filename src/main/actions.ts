@@ -1,12 +1,8 @@
 import { net, session } from "electron";
 import { parseTfsUrl } from "./url";
 import { workItemAssignee } from "./tfs";
+import { isTaskDraft, type TaskDraft, type TaskResult } from "../shared/api";
 import type { Item, Workspace } from "../shared/model";
-export interface Draft {
-  title: string;
-  assignedTo?: string;
-  estimate: number;
-}
 export function actions(
   w: Workspace,
   auth: { mode: string; pat?: string; version: string },
@@ -127,25 +123,16 @@ export function actions(
         );
       }
     },
-    async create(id: number, drafts: Draft[]) {
+    async create(id: number, drafts: TaskDraft[]) {
       if (
         !Array.isArray(drafts) ||
         !drafts.length ||
         drafts.length > 100 ||
-        drafts.some(
-          (d) =>
-            !d ||
-            typeof d.title !== "string" ||
-            !d.title.trim() ||
-            typeof d.estimate !== "number" ||
-            !Number.isFinite(d.estimate) ||
-            d.estimate < 0 ||
-            (d.assignedTo !== undefined && typeof d.assignedTo !== "string"),
-        )
+        !drafts.every(isTaskDraft)
       )
         throw Error("Invalid task drafts");
       const parent = await raw(id);
-      const results = [];
+      const results: TaskResult[] = [];
       for (const [index, d] of drafts.entries()) {
         const patch: any[] = [];
         const set = (f: string, v: unknown) => {

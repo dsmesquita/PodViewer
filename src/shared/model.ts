@@ -132,18 +132,22 @@ export function assignments(w: Workspace, m: Person): Pod[] {
     (p) => !w.overrides[p.id]?.closed && members(w, p).some((x) => same(x, m)),
   );
 }
+/** True when the area path equals or descends from any selected path (case-insensitive). */
+export function inAreas(paths: string[], areaPath?: string): boolean {
+  const area = areaPath?.toLowerCase();
+  return (
+    !!area &&
+    paths.some(
+      (a) =>
+        area === a.toLowerCase() || area.startsWith(a.toLowerCase() + "\\"),
+    )
+  );
+}
 export function visible(w: Workspace, past: boolean): Pod[] {
   if (!w.ownerInitialized) return [];
   return w.pods.filter(
     (p) =>
-      (!w.areasInitialized ||
-        w.areaPaths.some(
-          (a) =>
-            p.feature.areaPath?.toLowerCase() === a.toLowerCase() ||
-            p.feature.areaPath
-              ?.toLowerCase()
-              .startsWith(a.toLowerCase() + "\\"),
-        )) &&
+      (!w.areasInitialized || inAreas(w.areaPaths, p.feature.areaPath)) &&
       (past || !w.overrides[p.id]?.closed) &&
       (!w.owners.length || (!!p.owner && w.owners.includes(p.owner.id))),
   );
@@ -280,6 +284,39 @@ export function range(
       ) + 1,
   };
 }
+
+/** The local pod name if one was set, otherwise the board lane. */
+export const podName = (w: Workspace, p: Pod): string =>
+  w.overrides[p.id]?.name || p.lane;
+
+export type StateCategory = "proposed" | "active" | "resolved" | "done";
+
+export function stateCategory(state: string): StateCategory {
+  if (/^(closed|done|removed)$/i.test(state)) return "done";
+  if (/^resolved$/i.test(state)) return "resolved";
+  if (/^(new|proposed|ready|to do|approved)$/i.test(state)) return "proposed";
+  return "active";
+}
+
+export const isDone = (state: string) => stateCategory(state) === "done";
+
+/** True once TFS marks the Feature finished; the pod then awaits a local closure. */
+export const isFeatureFinished = (p: Pod) =>
+  /^(resolved|closed)$/i.test(p.feature.state);
+
+/** The first visible pod whose Feature finished and whose closure was neither recorded nor dismissed. */
+export function pendingClosure(w: Workspace): Pod | undefined {
+  return visible(w, false).find(
+    (p) =>
+      isFeatureFinished(p) &&
+      !w.overrides[p.id]?.closed &&
+      !w.overrides[p.id]?.dismissed,
+  );
+}
+
+/** Roster members without an open pod. */
+export const available = (w: Workspace): Person[] =>
+  w.roster.filter((m) => !assignments(w, m).length);
 
 export function assignedMember(
   item: Item,

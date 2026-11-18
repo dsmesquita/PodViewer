@@ -1,38 +1,35 @@
-import { useEffect, useState } from "react";
-import type { Item } from "../../../shared/model";
+import { useCallback, useEffect, useRef, useState } from "react";
+import type { Item } from "@shared/model";
+import { call } from "./api";
+
+/** Lazily reads a work item's children; reloads after tasks are created under it. */
 export function useWorkItemChildren(item: Item) {
   const [children, setChildren] = useState(item.children);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  async function load() {
-    if (busy) return;
+  const loading = useRef(false);
+
+  const load = useCallback(async () => {
+    if (loading.current) return;
+    loading.current = true;
     setBusy(true);
     setError("");
-    try {
-      const r = await window.api?.item(item.id);
-      if (r?.ok) setChildren(r.value.children || []);
-      else
-        setError(
-          r && !r.ok
-            ? r.message
-            : "Connect through the desktop app to load Tasks",
-        );
-    } catch (e) {
-      setError(String(e));
-    } finally {
-      setBusy(false);
-    }
-  }
+    const result = await call((api) => api.item(item.id));
+    if (result.ok) setChildren(result.value.children || []);
+    else setError(result.message);
+    loading.current = false;
+    setBusy(false);
+  }, [item.id]);
+
+  const loaded = children !== undefined;
   useEffect(() => {
     const changed = (event: Event) => {
-      if (
-        (event as CustomEvent<number>).detail === item.id &&
-        children !== undefined
-      )
+      if ((event as CustomEvent<number>).detail === item.id && loaded)
         void load();
     };
     window.addEventListener("work-items:changed", changed);
     return () => window.removeEventListener("work-items:changed", changed);
-  }, [item.id, children]);
+  }, [item.id, loaded, load]);
+
   return { children, busy, error, load };
 }

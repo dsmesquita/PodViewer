@@ -1,0 +1,185 @@
+/* Base and Feature pages */
+.base-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-gap-section);
+}
+.page-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-gap-form);
+}
+.feature-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--app-gap-action);
+  margin-bottom: var(--app-gap-section);
+}
+.feature-heading h1 {
+  flex: 1 1 320px;
+  font-size: var(--fontSizeBase500);
+}
+
+/* Pod page and preview */
+.pod-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-gap-section);
+}
+.pod-metadata {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--app-gap-form) var(--app-gap-section);
+  padding: 20px;
+  border-radius: var(--borderRadiusXLarge);
+  background: var(--colorNeutralBackground1);
+  border: 1px solid var(--colorNeutralStroke2);
+}
+.pod-name-field,
+.pod-feature {
+  display: flex;
+  align-items: center;
+  gap: var(--app-gap-action);
+  min-width: 0;
+}
+.pod-feature {
+  grid-column: 1 / -1;
+}
+.pod-feature strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pod-name-input {
+  flex: 1;
+  min-width: 0;
+}
+.pod-name-input input {
+  font-size: var(--fontSizeBase500);
+  font-weight: var(--fontWeightSemibold);
+}
+.pod-dates {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--app-gap-action);
+}
+.fui-Drawer .pod-metadata {
+  grid-template-columns: minmax(0, 1fr);
+}
+.pod-roster {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-gap-action);
+}
+.roster-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 8px;
+}
+.roster-list .person > .action-group {
+  margin-left: auto;
+}
+.tab-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-gap-action);
+  padding-top: var(--app-gap-form);
+}
+.member-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--app-gap-form);
+}
+.member-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-gap-action);
+  padding: 16px;
+  border-radius: var(--borderRadiusXLarge);
+  background: var(--colorNeutralBackground1);
+  border: 1px solid var(--colorNeutralStroke2);
+}
+.member-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.member-card-heading h3 {
+  flex: 1;
+}
+.member-card .task-row {
+  padding-inline: 0;
+}
+.pod-lifecycle {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--app-gap-form);
+  border-top: 1px solid var(--colorNeutralStroke2);
+}
+.member-choices {
+  display: flex;
+  flex-direction: column;
+  max-height: 320px;
+  overflow: auto;
+}
+.member-choice {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Settings */
+.settings {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: var(--app-gap-section);
+  align-items: start;
+}
+@media (max-width: 1100px) {
+  .settings {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.settings-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-gap-section);
+}
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-gap-form);
+  padding: 20px 24px;
+  border-radius: var(--borderRadiusXLarge);
+  background: var(--colorNeutralBackground1);
+  border: 1px solid var(--colorNeutralStroke2);
+}
+.template-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) 32px;
+  gap: var(--app-gap-action);
+  align-items: center;
+}
+.multi-select {
+  min-height: 120px;
+  padding: 4px;
+  font: inherit;
+  color: var(--colorNeutralForeground1);
+  background: var(--colorNeutralBackground1);
+  border: 1px solid var(--colorNeutralStroke1);
+  border-radius: var(--borderRadiusMedium);
+}
+.candidate-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Skills */
+.skills {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-gap-form);
+}

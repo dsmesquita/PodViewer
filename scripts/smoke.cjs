@@ -1,5 +1,5 @@
 const { _electron: electron } = require("playwright");
-const { mkdtemp, writeFile, readFile, rm } = require("node:fs/promises");
+const { mkdtemp, readFile, rm } = require("node:fs/promises");
 const { tmpdir } = require("node:os");
 const { join, resolve } = require("node:path");
 const http = require("node:http");
@@ -260,7 +260,11 @@ const assert = require("node:assert/strict");
     let page = await launch();
     const errors = [];
     page.on("pageerror", (e) => errors.push(String(e)));
-    await page.getByRole("button", { name: "Settings", exact: true }).click();
+    const nav = (name) =>
+      page
+        .getByRole("navigation", { name: "Main" })
+        .getByRole("button", { name, exact: true });
+    await nav("Settings").click();
     await page
       .getByLabel("Features board URL")
       .fill(
@@ -287,23 +291,24 @@ const assert = require("node:assert/strict");
     await inDialog("Search TFS").click();
     await inDialog("Miguel · DOMAIN\\miguel").click();
     await inDialog("Save").click();
-    await button("Overview").click();
+    await nav("Overview").click();
     await button("Open pod details for Pod One").click();
     await page.getByRole("dialog", { name: "Pod details" }).waitFor();
     assert(!page.url().includes("#pod/"));
     await button("Close").click();
-    await page
-      .locator(".pod-card .eyebrow")
-      .getByText("Pod One", { exact: true })
-      .click();
-    await page.waitForFunction(() => location.hash.startsWith("#pod/"));
+    await button("Pod One").click();
+    await page.waitForFunction(() =>
+      globalThis.location.hash.startsWith("#pod/"),
+    );
     assert.equal(await page.getByLabel("Show past pods").count(), 0);
     assert.equal(
       await page.getByRole("tab", { name: "Members", selected: true }).count(),
       1,
     );
     assert.equal(
-      await button("Pod membership").getAttribute("aria-expanded"),
+      await page
+        .getByRole("button", { name: /^Pod membership/ })
+        .getAttribute("aria-expanded"),
       "false",
     );
     await memberCard("Ana")
@@ -320,7 +325,7 @@ const assert = require("node:assert/strict");
     await dialog()
       .getByLabel(/Miguel/)
       .check();
-    await inDialog("Save").click();
+    await inDialog("Add members").click();
     await memberCard("Miguel")
       .getByText("Fixture task", { exact: true })
       .waitFor();
@@ -354,7 +359,7 @@ const assert = require("node:assert/strict");
     await page
       .getByRole("button", { name: "BUILD + VAL", exact: true })
       .click();
-    await inDialog("Save").click();
+    await inDialog("Create tasks").click();
     await page
       .getByRole("status")
       .filter({ hasText: "Row 1: created" })
@@ -364,21 +369,21 @@ const assert = require("node:assert/strict");
       "VAL:: Fixture feature",
     );
     assert.equal(await dialog().getByLabel("Task title 2").count(), 0);
-    await inDialog("Save").click();
+    await inDialog("Retry failed").click();
     await inDialog("Close").click();
     assert.equal(taskWrites, 3);
     await page.getByRole("link", { name: "#51", exact: true }).waitFor();
     await page.getByRole("link", { name: "#53", exact: true }).waitFor();
     await page.getByLabel("Pod name").fill("Local pod name");
-    await button("Overview").click();
+    await nav("Overview").click();
     await page.getByText("Local pod name", { exact: true }).waitFor();
-    await page.getByRole("button", { name: "Timeline", exact: true }).click();
+    await nav("Timeline").click();
     await page.locator(".timeline").waitFor();
-    await page.getByRole("button", { name: "Settings", exact: true }).click();
+    await nav("Settings").click();
     await page.locator("textarea").fill("Product\nProduct\\Other");
     await page.locator("textarea").press("Tab");
     assert((await page.locator("textarea").inputValue()).includes("\n"));
-    await page.getByRole("button", { name: "Skills", exact: true }).click();
+    await nav("Skills").click();
     await page.getByRole("tab", { name: "Skills", exact: true }).click();
     await button("Add skill").click();
     await dialog().getByLabel("Skill name").fill("Validation");
@@ -400,10 +405,7 @@ const assert = require("node:assert/strict");
       .locator(".level-4")
       .filter({ hasText: "Validation" })
       .waitFor();
-    await page
-      .getByRole("button", { name: "Base", exact: true })
-      .first()
-      .click();
+    await nav("Base").click();
     await page
       .getByRole("heading", {
         name: "Unassigned Features & work items",
@@ -417,10 +419,12 @@ const assert = require("node:assert/strict");
     assert(await page.locator("header").isHidden());
     await page.keyboard.press("Escape");
     assert(await page.locator("header").isVisible());
-    await page.getByRole("button", { name: "Overview", exact: true }).click();
-    await button("Fixture feature").press("Enter");
-    await page.waitForFunction(() => location.hash.startsWith("#pod/"));
-    await page.getByRole("button", { name: "Overview", exact: true }).click();
+    await nav("Overview").click();
+    await button("Local pod name").press("Enter");
+    await page.waitForFunction(() =>
+      globalThis.location.hash.startsWith("#pod/"),
+    );
+    await nav("Overview").click();
     assert.equal(errors.length, 0);
     await page.waitForTimeout(300);
     await app.close();
@@ -445,11 +449,7 @@ const assert = require("node:assert/strict");
     page = await launch();
     await page.getByText("Local pod name", { exact: true }).waitFor();
     await page
-      .getByRole("button", { name: "View status details", exact: true })
-      .first()
-      .click();
-    await page
-      .locator(".status-details")
+      .locator(".app-messages")
       .filter({ hasText: /fetch|ERR|connect|reach/i })
       .waitFor();
     await page.getByText("Local pod name", { exact: true }).click();
@@ -457,9 +457,9 @@ const assert = require("node:assert/strict");
       .getByRole("button", { name: "Close pod & return members to Base" })
       .click();
     await page.getByLabel("Actual closure date").fill("2026-11-17");
-    await page.getByRole("button", { name: "Save", exact: true }).click();
+    await inDialog("Close pod").click();
     await page.getByText("Closed 2026-11-17", { exact: true }).waitFor();
-    await button("Overview").click();
+    await nav("Overview").click();
     await page.getByLabel("Show past pods").check();
     await page.getByText("Local pod name", { exact: true }).waitFor();
 
