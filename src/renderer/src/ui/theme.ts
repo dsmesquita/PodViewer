@@ -31,7 +31,23 @@ const brand: BrandVariants = {
 
 export const lightTheme: Theme = {
   ...createLightTheme(brand),
-  // Links use the catalog's interactive blue so they read as links, not navy text.
+  // Accents use the catalog's interactive blue (as dark mode does); navy is too heavy.
+  colorBrandBackground: brand[100],
+  colorBrandBackgroundHover: brand[90],
+  colorBrandBackgroundPressed: brand[80],
+  colorBrandBackgroundSelected: brand[90],
+  colorCompoundBrandBackground: brand[100],
+  colorCompoundBrandBackgroundHover: brand[90],
+  colorCompoundBrandBackgroundPressed: brand[80],
+  colorCompoundBrandForeground1: brand[100],
+  colorCompoundBrandForeground1Hover: brand[90],
+  colorCompoundBrandForeground1Pressed: brand[80],
+  colorCompoundBrandStroke: brand[100],
+  colorCompoundBrandStrokeHover: brand[90],
+  colorCompoundBrandStrokePressed: brand[80],
+  colorBrandStroke1: brand[100],
+  colorBrandForeground1: brand[100],
+  colorBrandForeground2: brand[90],
   colorBrandForegroundLink: brand[100],
   colorBrandForegroundLinkHover: brand[90],
   colorBrandForegroundLinkPressed: brand[80],
